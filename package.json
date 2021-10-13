@@ -18,7 +18,7 @@
   "scripts": {
     "postinstall": "node bin/tools install",
     "prepare": "npx snyk protect || npx snyk protect -d || true",
-    "preinstall": "[[ \"$INIT_CWD\" != \"$PWD\" ]] || npm_config_yes=true npx check-engine"
+    "preinstall": "[ \"$INIT_CWD\" != \"$PWD\" ] || npm_config_yes=true npx check-engine"
   },
   "bin": {
     "n-es-tools": "bin/tools"
