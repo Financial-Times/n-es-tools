@@ -8,7 +8,7 @@ function run (cluster, command) {
 
   console.log(`Deleting index ${indexName} from ${cluster}: ${clusterHost}`)
 
-  client.delete({
+  client.indices.delete({
     format: 'json',
     index: indexName
   })
