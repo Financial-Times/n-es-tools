@@ -29,7 +29,7 @@ function run (cluster, command) {
     ]
   }
 
-  client.indices.updateAliases({ body: { actions } })
+  return client.indices.updateAliases({ body: { actions } })
     .then(() => {
       console.log(`Successfully reassigned alias ${alias} from ${oldIndex} to ${newIndex} in ${cluster}: ${clusterHost}`)
     })
