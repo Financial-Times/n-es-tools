@@ -21,7 +21,7 @@ function run (cluster, command) {
     })
     .catch(error => {
       console.log(`Failed to delete ${indexName} from ${cluster}: ${clusterHost}`)
-      console.log(error.message)
+      console.log('error: ', error.meta.statusCode, error.meta.body.Message)
     })
 }
 
