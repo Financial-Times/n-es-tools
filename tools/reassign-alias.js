@@ -1,7 +1,7 @@
 const elastic = require('../lib/elastic')
 
 function createErrorMessage (value) {
-  console.log(`You have not provided a value for ${value}. Please provide a value for ${value} with the --${value} option before continuing`)
+  return console.log(`You have not provided a value for ${value}. Please provide a value for ${value} with the --${value} option before continuing`)
 }
 
 function run (cluster, command) {
