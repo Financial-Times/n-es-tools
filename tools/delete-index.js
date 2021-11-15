@@ -2,11 +2,11 @@ const elastic = require('../lib/elastic')
 
 function run (cluster, command) {
   const { indexName } = command.opts()
-  
-  if(!indexName) {
+
+  if (!indexName) {
     console.log(`You have not provided a value for 'index'. Please provide a value for 'index' with the --index option before continuing`)
   }
-  
+
   const client = elastic(cluster)
   const clusterHost = global.workspace.clusters[cluster]
 
