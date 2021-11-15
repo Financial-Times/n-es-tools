@@ -24,6 +24,7 @@ const tools = [
   'delete-index',
   'ingest',
   'install',
+  'list-indices',
   'reindex',
   'repository',
   'restore',
