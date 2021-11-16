@@ -6,9 +6,9 @@ function createErrorMessage (value) {
 }
 
 function run (cluster, command) {
-  const { alias, oldIndex, newIndex } = command.opts()
-
-  if (!alias) {
+  const { aliasName, oldIndex, newIndex } = command.opts()
+  
+  if (!aliasName) {
     throw new Error(createErrorMessage('alias'))
   }
   if (!oldIndex) {
@@ -22,22 +22,22 @@ function run (cluster, command) {
   const clusterHost = global.workspace.clusters[cluster]
 
   console.log(chalk.cyan.bold.underline('Reassigning alias'))
-  console.log(`${chalk.cyan('Alias:')} ${alias}`)
+  console.log(`${chalk.cyan('Alias:')} ${aliasName}`)
   console.log(`${chalk.cyan('From Index:')} ${oldIndex}`)
   console.log(`${chalk.cyan('To Index:')} ${newIndex}`)
   console.log(`${chalk.cyan('Cluster:')} ${cluster}: ${clusterHost}`)
 
   const actions = {
     'actions': [
-      { 'remove': { 'index': `${oldIndex}`, 'alias': `${alias}` } },
-      { 'add': { 'index': `${newIndex}`, 'alias': `${alias}` } }
+      { 'remove': { 'index': `${oldIndex}`, 'alias': `${aliasName}` } },
+      { 'add': { 'index': `${newIndex}`, 'alias': `${aliasName}` } }
     ]
   }
 
-  return client.indices.updateAliases({ body: { actions } })
+  return client.indices.updateAliases({ body: actions })
     .then(() => {
       console.log(chalk.green.bold.underline('Alias reassigned'))
-      console.log(`${chalk.green('Alias:')} ${alias}`)
+      console.log(`${chalk.green('Alias:')} ${aliasName}`)
       console.log(`${chalk.green('From Index:')} ${oldIndex}`)
       console.log(`${chalk.green('To Index:')} ${newIndex}`)
       console.log(`${chalk.green('Cluster:')} ${cluster}: ${clusterHost}`)
@@ -45,12 +45,13 @@ function run (cluster, command) {
     .catch(error => {
       console.log(chalk.red.bold.underline('Failed to reassign alias'))
 
-      console.log(`${chalk.red('Alias:')} ${alias}`)
+      console.log(`${chalk.red('Alias:')} ${aliasName}`)
       console.log(`${chalk.red('From Index:')} ${oldIndex}`)
       console.log(`${chalk.red('To Index:')} ${newIndex}`)
       console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
 
       console.log(chalk.red('Error:'), error.meta.statusCode, error.meta.body.Message)
+      console.log(error)
     })
 }
 
@@ -58,7 +59,7 @@ module.exports = function (program) {
   program
     .command('reassign-alias <cluster>')
     .description('reassigns an alias from one index to another')
-    .option('-A, --alias', 'name of the alias to reassign')
+    .option('-A, --aliasName <name>', 'name of the alias to reassign')
     .option('-O, --oldIndex <name>', 'The old index name')
     .option('-N, --newIndex <name>', 'The new index name')
     .action(run)
