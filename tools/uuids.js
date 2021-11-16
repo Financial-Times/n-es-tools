@@ -12,19 +12,20 @@ let options
 function fetchScan () {
   return client.search({
     index: options.index,
-    type: 'item',
+    type: '_doc',
     q: options.query,
     sort: [ '_doc' ],
     scroll: '1m',
     size: 5000,
     _source: false
   })
-    .then((response) => {
-      status.total = response.hits.total
+    .then((response) => {      
+      status.total = response.body.hits.total      
 
+      response.body.hits.hits.forEach((item, i) => output.write(item._id + '\n'))
       // status.tick(response.body.hits.hits.length)
 
-      return response._scroll_id
+      return response.body._scroll_id
     })
 }
 
@@ -34,10 +35,11 @@ function fetchScroll (scrollId) {
     scrollId
   })
     .then((response) => {
+      response.body.hits.hits.forEach((item, i) => output.write(item._id + '\n'))
       // status.tick(response.body.hits.hits.length)
 
-      if (response.hits.hits.length > 0) {
-        return fetchScroll(response._scroll_id)
+      if (response.body.hits.hits.length > 0) {
+        return fetchScroll(response.body._scroll_id)
       } else {
         output.end()
       }
