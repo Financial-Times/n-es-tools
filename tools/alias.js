@@ -91,11 +91,13 @@ async function run (cluster, command) {
       fetchAliases(),
       fetchIndices()
     ])
+    console.log('aliases', aliases);
+    
 
-    await updateAliases(aliases, indices)
+    // await updateAliases(aliases, indices)
 
-    console.log('Alias complete')
-    process.exit()
+    // console.log('Alias complete')
+    // process.exit()
   } catch (error) {
     console.error(`Alias failed: ${error}`)
     process.exit(1)
