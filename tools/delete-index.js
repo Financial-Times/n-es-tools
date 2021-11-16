@@ -1,10 +1,14 @@
 const elastic = require('../lib/elastic')
 
 function run (cluster, command) {
+  const { indexName } = command.opts()
+
+  if (!indexName) {
+    console.log(`You have not provided a value for 'index'. Please provide a value for 'index' with the --index option before continuing`)
+  }
+
   const client = elastic(cluster)
   const clusterHost = global.workspace.clusters[cluster]
-  const options = command.opts()
-  const indexName = options.index
 
   console.log(`Deleting index ${indexName} from ${cluster}: ${clusterHost}`)
 
@@ -17,7 +21,7 @@ function run (cluster, command) {
     })
     .catch(error => {
       console.log(`Failed to delete ${indexName} from ${cluster}: ${clusterHost}`)
-      console.log(error.message)
+      console.log('error: ', error.meta.statusCode, error.meta.body.Message)
     })
 }
 

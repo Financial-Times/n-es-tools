@@ -29,6 +29,7 @@ const tools = [
   'reindex',
   'repository',
   'restore',
+  'reassign-alias',
   'snapshot',
   'snapshot-download',
   'sync',
