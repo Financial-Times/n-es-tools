@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const elastic = require('../lib/elastic')
 
 let client
@@ -12,7 +13,8 @@ async function run (cluster) {
   client = elastic(cluster)
   const clusterHost = global.workspace.clusters[cluster]
 
-  console.log(`Listing all indices in ${clusterHost}`)
+  console.log(chalk.cyan.bold.underline('Listing all indices in'))
+  console.log(clusterHost)
 
   try {
     const elasticsearchResponse = await fetchIndices()
@@ -23,9 +25,11 @@ async function run (cluster) {
       }
     })
 
+    console.log(chalk.green.bold.underline('Indices'))
     console.log(output)
   } catch (error) {
-    console.log(`Failed to get indices for ${clusterHost}`)
+    console.log(chalk.red.bold.underline('Failed to get indices'))
+    console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
     console.log(error.message)
   }
 }
