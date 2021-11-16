@@ -22,8 +22,7 @@ function fetchScan () {
     .then((response) => {
       status.total = response.hits.total
 
-      response.hits.hits.forEach((item, i) => output.write(item._id + '\n'))
-      status.tick(response.hits.hits.length)
+      // status.tick(response.body.hits.hits.length)
 
       return response._scroll_id
     })
@@ -35,8 +34,7 @@ function fetchScroll (scrollId) {
     scrollId
   })
     .then((response) => {
-      response.hits.hits.forEach((item, i) => output.write(item._id + '\n'))
-      status.tick(response.hits.hits.length)
+      // status.tick(response.body.hits.hits.length)
 
       if (response.hits.hits.length > 0) {
         return fetchScroll(response._scroll_id)
