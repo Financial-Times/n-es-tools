@@ -10,7 +10,7 @@ function verifyIndices ({ source, dest }) {
   return client.cat.indices({
     format: 'json'
   })
-    .then((result) => {      
+    .then((result) => {
       const a = result.body.some(({ index }) => index === source)
       const b = result.body.some(({ index }) => index === dest)
 
@@ -77,16 +77,16 @@ function run (cluster, command) {
   console.log(opts.source)
   console.log(chalk.cyan.bold.underline('to destination index:'))
   console.log(opts.dest)
-  
+
   console.log(chalk.cyan.bold.underline('From the cluster'))
   console.log(`${cluster}: ${clusterHost}`)
-  
+
   status = progress('Reindexing')
 
   return Promise.resolve()
     .then(() => verifyIndices(opts))
     .then(() => startReindex(opts))
-    .then(({body}) => {
+    .then(({ body }) => {
       console.log(`Reindex started with task ID ${body.task}`)
       return pingStatus(body.task)
     })

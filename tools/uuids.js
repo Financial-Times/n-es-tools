@@ -19,8 +19,8 @@ function fetchScan () {
     size: 5000,
     _source: false
   })
-    .then((response) => {      
-      status.total = response.body.hits.total      
+    .then((response) => {
+      status.total = response.body.hits.total
 
       response.body.hits.hits.forEach((item, i) => output.write(item._id + '\n'))
       // status.tick(response.body.hits.hits.length)

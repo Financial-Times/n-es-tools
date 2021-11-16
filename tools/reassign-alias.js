@@ -7,7 +7,7 @@ function createErrorMessage (value) {
 
 function run (cluster, command) {
   const { aliasName, oldIndex, newIndex } = command.opts()
-  
+
   if (!aliasName) {
     throw new Error(createErrorMessage('alias'))
   }
