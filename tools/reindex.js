@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const progress = require('../lib/progress')
 const elastic = require('../lib/elastic')
 const wait = require('../lib/wait')
@@ -69,6 +70,15 @@ function run (cluster, command) {
   const opts = command.opts()
 
   client = elastic(cluster)
+  const clusterHost = global.workspace.clusters[cluster]
+
+  console.log(chalk.cyan.bold.underline('You are reindexing from source index:'))
+  console.log(opts.source)
+  console.log(chalk.cyan.bold.underline('to destination index:'))
+  console.log(opts.dest)
+  
+  console.log(chalk.cyan.bold.underline('From the cluster'))
+  console.log(`${cluster}: ${clusterHost}`)
   status = progress('Reindexing')
 
   return Promise.resolve()
