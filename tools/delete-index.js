@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const elastic = require('../lib/elastic')
 
 function run (cluster, command) {
@@ -10,18 +11,27 @@ function run (cluster, command) {
   const client = elastic(cluster)
   const clusterHost = global.workspace.clusters[cluster]
 
-  console.log(`Deleting index ${indexName} from ${cluster}: ${clusterHost}`)
+  console.log(chalk.cyan.bold.underline('You are deleting the index'))
+  console.log(indexName)
+
+  console.log(chalk.cyan.bold.underline('From the cluster'))
+  console.log(`${cluster}: ${clusterHost}`)
 
   client.indices.delete({
     format: 'json',
     index: indexName
   })
     .then(() => {
-      console.log(`Index ${indexName} has been deleted from ${cluster}: ${clusterHost}`)
+      console.log(chalk.green.bold.underline('Index deleted'))
+      console.log(`${chalk.green('Index:')} ${indexName}`)
+      console.log(`${chalk.green('Deleted from:')} ${cluster}: ${clusterHost}`)
     })
     .catch(error => {
-      console.log(`Failed to delete ${indexName} from ${cluster}: ${clusterHost}`)
-      console.log('error: ', error.meta.statusCode, error.meta.body.Message)
+      console.log(chalk.red.bold.underline('Failed to delete index'))
+      console.log(`${chalk.red('Index:')} ${indexName}`)
+      console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
+
+      console.log(chalk.red('Error: '), error.meta.statusCode, error.meta.body.Message)
     })
 }
 
