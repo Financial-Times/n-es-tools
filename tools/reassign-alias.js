@@ -56,7 +56,7 @@ function run (cluster, command) {
 
 module.exports = function (program) {
   program
-    .command('assign-alias <cluster>')
+    .command('reassign-alias <cluster>')
     .description('reassigns an alias from one index to another')
     .option('-A, --alias', 'name of the alias to reassign')
     .option('-O, --oldIndex <name>', 'The old index name')
