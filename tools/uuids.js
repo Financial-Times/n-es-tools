@@ -3,6 +3,7 @@ const elastic = require('../lib/elastic')
 const progress = require('../lib/progress')
 const template = require('../lib/template')
 const resolvePath = require('../lib/resolve-path')
+const chalk = require('chalk')
 
 let client
 let status
@@ -50,6 +51,7 @@ function run (cluster, command) {
   client = elastic(cluster)
   status = progress('Downloading UUIDs')
   options = command.opts()
+  const clusterHost = global.workspace.clusters[cluster]
 
   // allow templating in filename to interpolate options ✌️
   const filename = template(options.filename, Object.assign({}, options, { cluster }))
@@ -70,8 +72,10 @@ function run (cluster, command) {
       console.log(`UUIDs saved to ${filepath}`)
       process.exit()
     })
-    .catch((err) => {
-      console.error(`UUIDs failed: ${err.toString()}`)
+    .catch((error) => {
+      console.log(chalk.red.bold.underline('Failed to write UUIDs'))
+      console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
+      console.log(chalk.red('Error: '), error)
       process.exit(1)
     })
 }

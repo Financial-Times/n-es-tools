@@ -44,14 +44,12 @@ function run (cluster, command) {
     })
     .catch(error => {
       console.log(chalk.red.bold.underline('Failed to reassign alias'))
-
       console.log(`${chalk.red('Alias:')} ${aliasName}`)
       console.log(`${chalk.red('From Index:')} ${source}`)
       console.log(`${chalk.red('To Index:')} ${dest}`)
       console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
-
-      console.log(chalk.red('Error:'), error.meta.statusCode, error.meta.body.Message)
-      console.log(error)
+      console.log(chalk.red('Error: '), error)
+      process.exit(1)
     })
 }
 
