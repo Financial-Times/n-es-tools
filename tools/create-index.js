@@ -1,6 +1,7 @@
 const os = require('os')
 const path = require('path')
 const fileSystem = require('fs')
+const chalk = require('chalk')
 const elastic = require('../lib/elastic')
 
 function loadIndexSchema () {
@@ -28,24 +29,26 @@ async function run (cluster, command) {
     throw new Error('The --index option is required')
   }
 
-  console.log(`You are about to create a new index in ${clusterHost}`)
+  console.log(chalk.cyan.bold.underline('You are creating a new index in'))
+  console.log(clusterHost)
 
-  console.log(`The new index will be called ${options.index}`)
+  console.log(chalk.cyan.bold.underline('The new index will be named'))
+  console.log(options.index)
 
   try {
     indexSchema = loadIndexSchema()
   } catch (error) {
-    console.log('Failed to load index schema', error.message)
+    console.log(chalk.red.bold.underline('Failed to load index schema'), error.message)
   }
 
   try {
     await createIndex(indexName, indexSchema)
 
-    console.log('New index created')
-    console.log(`Created in: ${clusterHost}`)
-    console.log(`New index called: ${indexName}`)
+    console.log(chalk.green.bold.underline('New index created'))
+    console.log(`${chalk.green('Created in:')} ${clusterHost}`)
+    console.log(`${chalk.green('New index called:')} ${indexName}`)
   } catch (error) {
-    console.log('Failed to create index', error.meta.statusCode, error.meta.body.Message)
+    console.log(chalk.red.bold.underline('Failed to create index'), error.meta.statusCode, error.meta.body.Message)
   }
 }
 

@@ -19,10 +19,10 @@ if (fs.existsSync(configPath)) {
 
 // register all tools
 const tools = [
-  'alias',
   'create-index',
   'diff',
   'delete-index',
+  'get-aliases',
   'ingest',
   'install',
   'list-indices',
