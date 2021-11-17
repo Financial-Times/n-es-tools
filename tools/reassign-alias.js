@@ -6,16 +6,16 @@ function createErrorMessage (value) {
 }
 
 function run (cluster, command) {
-  const { aliasName, oldIndex, newIndex } = command.opts()
+  const { aliasName, source, dest } = command.opts()
 
   if (!aliasName) {
     throw new Error(createErrorMessage('alias'))
   }
-  if (!oldIndex) {
-    throw new Error(createErrorMessage('oldIndex'))
+  if (!source) {
+    throw new Error(createErrorMessage('source'))
   }
-  if (!newIndex) {
-    throw new Error(createErrorMessage('newIndex'))
+  if (!dest) {
+    throw new Error(createErrorMessage('dest'))
   }
 
   const client = elastic(cluster)
@@ -23,14 +23,14 @@ function run (cluster, command) {
 
   console.log(chalk.cyan.bold.underline('Reassigning alias'))
   console.log(`${chalk.cyan('Alias:')} ${aliasName}`)
-  console.log(`${chalk.cyan('From Index:')} ${oldIndex}`)
-  console.log(`${chalk.cyan('To Index:')} ${newIndex}`)
+  console.log(`${chalk.cyan('From Index:')} ${source}`)
+  console.log(`${chalk.cyan('To Index:')} ${dest}`)
   console.log(`${chalk.cyan('Cluster:')} ${cluster}: ${clusterHost}`)
 
   const actions = {
     'actions': [
-      { 'remove': { 'index': `${oldIndex}`, 'alias': `${aliasName}` } },
-      { 'add': { 'index': `${newIndex}`, 'alias': `${aliasName}` } }
+      { 'remove': { 'index': `${source}`, 'alias': `${aliasName}` } },
+      { 'add': { 'index': `${dest}`, 'alias': `${aliasName}` } }
     ]
   }
 
@@ -38,16 +38,16 @@ function run (cluster, command) {
     .then(() => {
       console.log(chalk.green.bold.underline('Alias reassigned'))
       console.log(`${chalk.green('Alias:')} ${aliasName}`)
-      console.log(`${chalk.green('From Index:')} ${oldIndex}`)
-      console.log(`${chalk.green('To Index:')} ${newIndex}`)
+      console.log(`${chalk.green('From Index:')} ${source}`)
+      console.log(`${chalk.green('To Index:')} ${dest}`)
       console.log(`${chalk.green('Cluster:')} ${cluster}: ${clusterHost}`)
     })
     .catch(error => {
       console.log(chalk.red.bold.underline('Failed to reassign alias'))
 
       console.log(`${chalk.red('Alias:')} ${aliasName}`)
-      console.log(`${chalk.red('From Index:')} ${oldIndex}`)
-      console.log(`${chalk.red('To Index:')} ${newIndex}`)
+      console.log(`${chalk.red('From Index:')} ${source}`)
+      console.log(`${chalk.red('To Index:')} ${dest}`)
       console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
 
       console.log(chalk.red('Error:'), error.meta.statusCode, error.meta.body.Message)
@@ -60,7 +60,7 @@ module.exports = function (program) {
     .command('reassign-alias <cluster>')
     .description('reassigns an alias from one index to another')
     .option('-A, --aliasName <name>', 'name of the alias to reassign')
-    .option('-O, --oldIndex <name>', 'The old index name')
-    .option('-N, --newIndex <name>', 'The new index name')
+    .option('-S, --source <name>', 'The old index name')
+    .option('-D, --dest <name>', 'The new index name')
     .action(run)
 }
