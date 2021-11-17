@@ -48,7 +48,10 @@ async function run (cluster, command) {
     console.log(`${chalk.green('Created in:')} ${clusterHost}`)
     console.log(`${chalk.green('New index called:')} ${indexName}`)
   } catch (error) {
-    console.log(chalk.red.bold.underline('Failed to create index'), error.meta.statusCode, error.meta.body.Message)
+    console.log(chalk.red.bold.underline('Failed to create index'))
+    console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
+    console.log(chalk.red('Error: '), error)
+    process.exit(1)
   }
 }
 
