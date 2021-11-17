@@ -30,8 +30,8 @@ function run (cluster, command) {
       console.log(chalk.red.bold.underline('Failed to delete index'))
       console.log(`${chalk.red('Index:')} ${index}`)
       console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
-
-      console.log(chalk.red('Error: '), error.meta.statusCode, error.meta.body.Message)
+      console.log(chalk.red('Error: '), error)
+      process.exit(1)
     })
 }
 

@@ -30,7 +30,8 @@ async function run (cluster) {
   } catch (error) {
     console.log(chalk.red.bold.underline('Failed to get indices'))
     console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
-    console.log(error.message)
+    console.log(chalk.red('Error: '), error)
+    process.exit(1)
   }
 }
 

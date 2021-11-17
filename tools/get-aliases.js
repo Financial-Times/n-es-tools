@@ -28,7 +28,7 @@ async function run (cluster, command) {
     .catch(error => {
       console.log(chalk.red.bold.underline('Failed to get aliases'))
       console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
-      console.log(error)
+      console.log(chalk.red('Error: '), error)
       process.exit(1)
     })
 }

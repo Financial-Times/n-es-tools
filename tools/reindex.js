@@ -94,8 +94,12 @@ function run (cluster, command) {
       console.log(`Reindex from ${opts.source} to ${opts.dest} complete`)
       process.exit()
     })
-    .catch((err) => {
-      console.error(`Reindex failed: ${err.toString()}`)
+    .catch((error) => {
+      console.log(chalk.red.bold.underline('Failed to reindex'))
+      console.log(`${chalk.red('From Index:')} ${opts.source}`)
+      console.log(`${chalk.red('To Index:')} ${opts.dest}`)
+      console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
+      console.log(chalk.red('Error: '), error)
       process.exit(1)
     })
 }
