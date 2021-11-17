@@ -1,3 +1,4 @@
+const chalk = require('chalk')
 const elastic = require('../lib/elastic')
 
 let client
@@ -10,14 +11,26 @@ function fetchAliases () {
 
 async function run (cluster, command) {
   client = elastic(cluster)
+  const clusterHost = global.workspace.clusters[cluster]
 
-  try {
-    const aliases = await fetchAliases()
-    console.log('aliases', aliases)
-  } catch (error) {
-    console.error(`get-alias failed: ${error}`)
-    process.exit(1)
-  }
+  return fetchAliases()
+    .then(response => {
+      const output = response.body.map(item => {
+        return {
+          indexName: item.index,
+          alias: item.alias
+        }
+      })
+
+      console.log(chalk.green.bold.underline('Aliases'))
+      console.log(output)
+    })
+    .catch(error => {
+      console.log(chalk.red.bold.underline('Failed to get aliases'))
+      console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
+      console.log(error)
+      process.exit(1)
+    })
 }
 
 module.exports = function (program) {
