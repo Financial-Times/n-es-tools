@@ -185,3 +185,166 @@ Rotating AWS keys means that eventually the `access_key` stored at `~/.n-es-tool
 ```
 
 Reinstalling `n-es-tools` will pull in the current `access_key` and should address this issue.
+
+### Create Project
+
+##### `nori create-project --project-data.name --project-data.org`
+
+Create a Github Project.
+
+<table>
+  <tr>
+    <th align="right" rowspan="2">Arguments</th>
+    <td><code>projectData.name</code></td>
+    <td>the name of the project to create</td>
+  </tr>
+  <tr>
+    <td><code>projectData.org</code></td>
+    <td>the org to create the project in. this must be the same org as every repo that you've created a PR on.</td>
+  </tr>
+  <tr>
+    <th align="right">Configuration</th>
+    <td><code>githubAccessToken</code></td>
+    <td>
+      Github <a href="https://github.com/settings/tokens/new?scopes=repo&description=Nori" target="_blank">personal access token with <code>repo</code> scope</a>
+    </td>
+  </tr>
+  <tr>
+    <th align="right">Inputs</th>
+    <td colspan="2"><em>none</em></td>
+  </tr>
+  <tr>
+    <th align="right">Output</th>
+    <td colspan="2"><code>project</code></td>
+  </tr>
+</table>
+
+**NB** _we're considering what to do about repos from multiple orgs, see [#62](https://github.com/Financial-Times/nori/issue/62)_
+
+**NB** _the project will have `To Do`, `In Progress` and `Done` columns, but there's currently no way to set up automatic transitions using the Github API. you'll have to set that up manually if you want the project board to reflect the state of the PRs_
+
+## Operations
+These are some, but not all, of the commands available in `n-es-tools`.
+
+### create-index
+
+Create a new index within a cluster. This command requires a schema file called `index-schema.json` to be present within the .n-es-tools directory in your home directory. i.e. ~/.n-es-tools/index-schema.json.
+
+If you are using this command to reindex ElasticSearch then you can use the contents of [next-es-interface/schema/content.json](https://github.com/Financial-Times/next-es-interface/blob/main/schema/content.json).
+##### `n-es-tools create-index <cluster>`
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to to create new index (dev, eu, or us) </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td><code>--index</code>, <code>--I</code></td>
+    <td>The name of the new index to be created</td>
+  </tr>
+</table>
+
+### diff
+### delete-index
+
+Delete an index from a given cluster
+##### `n-es-tools delete-index <cluster>`
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to delete the index (dev, eu, or us) </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td><code>--index</code>, <code>--I</code></td>
+    <td>The name of the new index to be deleted</td>
+  </tr>
+</table>
+
+### get-aliases
+
+##### `n-es-tools get-aliases <cluster>`
+
+Returns the list of aliases on a cluster and the indexes that they're assigned to
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster from which to retrieve aliases (dev, eu, or us) </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td colspan="2"><em>none</em></td>
+  </tr>
+</table>
+
+### list-indices
+
+Retrieve the list of indices on a cluster
+##### `n-es-tools list-indices <cluster>`
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster from which to retrieve indices (dev, eu, or us) </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td colspan="2"><em>none</em></td>
+  </tr>
+</table>
+
+### reindex
+##### `n-es-tools reindex <cluster>`
+
+Copies content from one index to another
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to perform the reindex (dev, eu, or us) </td>
+  <tr>
+    <th align="right">Options</th>
+    <td><code>--source</code>, <code>--S</code></td>
+    <td>The source index, where content will be copied from</td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td><code>--dest</code>, <code>--D</code></td>
+    <td>The destination index, where content will be copied to</td>
+  </tr>
+</table>
+
+### reassign-alias
+
+Reassign an alias from one index to another.
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to perform the reindex (dev, eu, or us) </td>
+  <tr>
+    <th align="right">Options</th>
+    <td><code>--aliasName</code>, <code>--A</code></td>
+    <td>The name of the alias to be reassigned</td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td><code>--source</code>, <code>--S</code></td>
+    <td>The source index, where the alias will be removed from</td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td><code>--dest</code>, <code>--D</code></td>
+    <td>The destination index, where the alias will be added to</td>
+  </tr>
+</table>
+### uuids
