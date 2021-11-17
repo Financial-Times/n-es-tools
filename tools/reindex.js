@@ -43,7 +43,7 @@ function pingStatus (taskId) {
     .then((result) => {
       const resBody = result.body
       status.total = resBody.task.status.total
-      status.curr = resBody.task.status.updated
+      status.curr = resBody.task.status.created
 
       // Don't draw a progress bar before we have any data
       // and don't draw one when AWS gets carried away.
