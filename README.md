@@ -185,44 +185,6 @@ Rotating AWS keys means that eventually the `access_key` stored at `~/.n-es-tool
 ```
 
 Reinstalling `n-es-tools` will pull in the current `access_key` and should address this issue.
-
-### Create Project
-
-##### `nori create-project --project-data.name --project-data.org`
-
-Create a Github Project.
-
-<table>
-  <tr>
-    <th align="right" rowspan="2">Arguments</th>
-    <td><code>projectData.name</code></td>
-    <td>the name of the project to create</td>
-  </tr>
-  <tr>
-    <td><code>projectData.org</code></td>
-    <td>the org to create the project in. this must be the same org as every repo that you've created a PR on.</td>
-  </tr>
-  <tr>
-    <th align="right">Configuration</th>
-    <td><code>githubAccessToken</code></td>
-    <td>
-      Github <a href="https://github.com/settings/tokens/new?scopes=repo&description=Nori" target="_blank">personal access token with <code>repo</code> scope</a>
-    </td>
-  </tr>
-  <tr>
-    <th align="right">Inputs</th>
-    <td colspan="2"><em>none</em></td>
-  </tr>
-  <tr>
-    <th align="right">Output</th>
-    <td colspan="2"><code>project</code></td>
-  </tr>
-</table>
-
-**NB** _we're considering what to do about repos from multiple orgs, see [#62](https://github.com/Financial-Times/nori/issue/62)_
-
-**NB** _the project will have `To Do`, `In Progress` and `Done` columns, but there's currently no way to set up automatic transitions using the Github API. you'll have to set that up manually if you want the project board to reflect the state of the PRs_
-
 ## Operations
 These are some, but not all, of the commands available in `n-es-tools`.
 
@@ -246,7 +208,6 @@ If you are using this command to reindex ElasticSearch then you can use the cont
   </tr>
 </table>
 
-### diff
 ### delete-index
 
 Delete an index from a given cluster
@@ -262,6 +223,27 @@ Delete an index from a given cluster
     <th align="right">Options</th>
     <td><code>--index</code>, <code>--I</code></td>
     <td>The name of the new index to be deleted</td>
+  </tr>
+</table>
+
+### diff
+##### `n-es-tools diff <a> <b>`
+
+Returns the differences between two sets of uuids
+
+<table>
+  <tr>
+    <th align="right" rowspan="2">Arguments</th>
+    <td><code>a</code></td>
+    <td>filename for first list of uuids</td>
+  </tr>
+  <tr>
+    <td><code>b</code></td>
+    <td>filename for second list of uuids </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td colspan="2"><em>none</em></td>
   </tr>
 </table>
 
@@ -311,12 +293,11 @@ Copies content from one index to another
     <td><code>cluster</code></td>
     <td>cluster in which to perform the reindex (dev, eu, or us) </td>
   <tr>
-    <th align="right">Options</th>
+    <th align="right" rowspan="2">Options</th>
     <td><code>--source</code>, <code>--S</code></td>
     <td>The source index, where content will be copied from</td>
   </tr>
   <tr>
-    <th align="right">Options</th>
     <td><code>--dest</code>, <code>--D</code></td>
     <td>The destination index, where content will be copied to</td>
   </tr>
@@ -332,19 +313,42 @@ Reassign an alias from one index to another.
     <td><code>cluster</code></td>
     <td>cluster in which to perform the reindex (dev, eu, or us) </td>
   <tr>
-    <th align="right">Options</th>
+    <th align="right" rowspan="3">Options</th>
     <td><code>--aliasName</code>, <code>--A</code></td>
     <td>The name of the alias to be reassigned</td>
   </tr>
   <tr>
-    <th align="right">Options</th>
     <td><code>--source</code>, <code>--S</code></td>
     <td>The source index, where the alias will be removed from</td>
   </tr>
   <tr>
-    <th align="right">Options</th>
     <td><code>--dest</code>, <code>--D</code></td>
     <td>The destination index, where the alias will be added to</td>
   </tr>
 </table>
+
 ### uuids
+##### `n-es-tools uuids <cluster>`
+
+Outputs all uuids in a given index to a .txt file
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to perform the reindex (dev, eu, or us) </td>
+  <tr>
+    <th align="right" rowspan="3">Options</th>
+    <td><code>--index</code>, <code>--I</code></td>
+    <td>The name of the index to retrieve uuids for</td>
+  </tr>
+  <tr>
+    <td><code>--query</code>, <code>--Q</code></td>
+    <td>Simple query string query (optional)</td>
+  </tr>
+  <tr>
+    <td><code>--filename</code>, <code>--F</code></td>
+    <td>Filename to output list of uuids to (optional; defaults to <code>uuids-{{cluster}}.txt)</code></td>
+  </tr>
+</table>
+
