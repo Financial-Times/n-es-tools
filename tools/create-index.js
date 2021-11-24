@@ -39,6 +39,7 @@ async function run (cluster, command) {
     indexSchema = loadIndexSchema()
   } catch (error) {
     console.log(chalk.red.bold.underline('Failed to load index schema'), error.message)
+    process.exit(1)
   }
 
   try {
