@@ -185,3 +185,170 @@ Rotating AWS keys means that eventually the `access_key` stored at `~/.n-es-tool
 ```
 
 Reinstalling `n-es-tools` will pull in the current `access_key` and should address this issue.
+## Operations
+These are some, but not all, of the commands available in `n-es-tools`.
+
+### create-index
+
+Create a new index within a cluster. This command requires a schema file called `index-schema.json` to be present within the .n-es-tools directory in your home directory. i.e. ~/.n-es-tools/index-schema.json.
+
+If you are using this command to reindex ElasticSearch then you can use the contents of [next-es-interface/schema/content.json](https://github.com/Financial-Times/next-es-interface/blob/main/schema/content.json).
+##### `n-es-tools create-index <cluster>`
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to to create new index (dev, eu, or us) </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td><code>--index</code>, <code>--I</code></td>
+    <td>The name of the new index to be created</td>
+  </tr>
+</table>
+
+### delete-index
+
+Delete an index from a given cluster
+##### `n-es-tools delete-index <cluster>`
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to delete the index (dev, eu, or us) </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td><code>--index</code>, <code>--I</code></td>
+    <td>The name of the new index to be deleted</td>
+  </tr>
+</table>
+
+### diff
+##### `n-es-tools diff <a> <b>`
+
+Returns the differences between two sets of uuids
+
+<table>
+  <tr>
+    <th align="right" rowspan="2">Arguments</th>
+    <td><code>a</code></td>
+    <td>filename for first list of uuids</td>
+  </tr>
+  <tr>
+    <td><code>b</code></td>
+    <td>filename for second list of uuids </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td colspan="2"><em>none</em></td>
+  </tr>
+</table>
+
+### get-aliases
+
+##### `n-es-tools get-aliases <cluster>`
+
+Returns the list of aliases on a cluster and the indexes that they're assigned to
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster from which to retrieve aliases (dev, eu, or us) </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td colspan="2"><em>none</em></td>
+  </tr>
+</table>
+
+### list-indices
+
+Retrieve the list of indices on a cluster
+##### `n-es-tools list-indices <cluster>`
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster from which to retrieve indices (dev, eu, or us) </td>
+  </tr>
+  <tr>
+    <th align="right">Options</th>
+    <td colspan="2"><em>none</em></td>
+  </tr>
+</table>
+
+### reindex
+##### `n-es-tools reindex <cluster>`
+
+Copies content from one index to another
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to perform the reindex (dev, eu, or us) </td>
+  <tr>
+    <th align="right" rowspan="2">Options</th>
+    <td><code>--source</code>, <code>--S</code></td>
+    <td>The source index, where content will be copied from</td>
+  </tr>
+  <tr>
+    <td><code>--dest</code>, <code>--D</code></td>
+    <td>The destination index, where content will be copied to</td>
+  </tr>
+</table>
+
+### reassign-alias
+
+Reassign an alias from one index to another.
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to perform the reindex (dev, eu, or us) </td>
+  <tr>
+    <th align="right" rowspan="3">Options</th>
+    <td><code>--aliasName</code>, <code>--A</code></td>
+    <td>The name of the alias to be reassigned</td>
+  </tr>
+  <tr>
+    <td><code>--source</code>, <code>--S</code></td>
+    <td>The source index, where the alias will be removed from</td>
+  </tr>
+  <tr>
+    <td><code>--dest</code>, <code>--D</code></td>
+    <td>The destination index, where the alias will be added to</td>
+  </tr>
+</table>
+
+### uuids
+##### `n-es-tools uuids <cluster>`
+
+Outputs all uuids in a given index to a .txt file
+
+<table>
+  <tr>
+    <th align="right">Arguments</th>
+    <td><code>cluster</code></td>
+    <td>cluster in which to perform the reindex (dev, eu, or us) </td>
+  <tr>
+    <th align="right" rowspan="3">Options</th>
+    <td><code>--index</code>, <code>--I</code></td>
+    <td>The name of the index to retrieve uuids for</td>
+  </tr>
+  <tr>
+    <td><code>--query</code>, <code>--Q</code></td>
+    <td>Simple query string query (optional)</td>
+  </tr>
+  <tr>
+    <td><code>--filename</code>, <code>--F</code></td>
+    <td>Filename to output list of uuids to (optional; defaults to <code>uuids-{{cluster}}.txt)</code></td>
+  </tr>
+</table>
+
