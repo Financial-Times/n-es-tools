@@ -18,10 +18,7 @@
   "scripts": {
     "postinstall": "node bin/tools install",
     "prepare": "npx snyk protect || npx snyk protect -d || true",
-    "preinstall": "[ \"$INIT_CWD\" != \"$PWD\" ] || npm_config_yes=true npx check-engine",
-    "precommit": "secret-squirrel",
-    "commitmsg": "secret-squirrel-commitmsg",
-    "prepush": "make verify -j3"
+    "preinstall": "[ \"$INIT_CWD\" != \"$PWD\" ] || npm_config_yes=true npx check-engine"
   },
   "bin": {
     "n-es-tools": "bin/tools"
@@ -37,15 +34,15 @@
     "node": "12.x",
     "npm": "7.x || 8.x"
   },
-  "husky": {
-    "hooks": {
-      "commit-msg": "node_modules/.bin/secret-squirrel-commitmsg",
-      "pre-commit": "node_modules/.bin/secret-squirrel",
-      "pre-push": "make verify -j3"
-    }
-  },
   "volta": {
     "node": "12.22.5",
     "npm": "7.20.2"
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "secret-squirrel-commitmsg",
+      "pre-commit": "secret-squirrel",
+      "pre-push": "make verify -j3"
+    }
   }
 }

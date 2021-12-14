@@ -99,7 +99,7 @@ function run (cluster, command) {
       console.log(`${chalk.red('From Index:')} ${opts.source}`)
       console.log(`${chalk.red('To Index:')} ${opts.dest}`)
       console.log(`${chalk.red('Cluster:')} ${cluster}: ${clusterHost}`)
-      console.log(chalk.red('Error: '), error)
+      console.log(chalk.red('Error: '), console.dir(error, { depth: 10 }))
       process.exit(1)
     })
 }

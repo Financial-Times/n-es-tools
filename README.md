@@ -203,7 +203,7 @@ If you are using this command to reindex ElasticSearch then you can use the cont
   </tr>
   <tr>
     <th align="right">Options</th>
-    <td><code>--index</code>, <code>--I</code></td>
+    <td><code>--index</code>, <code>-I</code></td>
     <td>The name of the new index to be created</td>
   </tr>
 </table>
@@ -221,7 +221,7 @@ Delete an index from a given cluster
   </tr>
   <tr>
     <th align="right">Options</th>
-    <td><code>--index</code>, <code>--I</code></td>
+    <td><code>--index</code>, <code>-I</code></td>
     <td>The name of the new index to be deleted</td>
   </tr>
 </table>
@@ -294,11 +294,11 @@ Copies content from one index to another
     <td>cluster in which to perform the reindex (dev, eu, or us) </td>
   <tr>
     <th align="right" rowspan="2">Options</th>
-    <td><code>--source</code>, <code>--S</code></td>
+    <td><code>--source</code>, <code>-S</code></td>
     <td>The source index, where content will be copied from</td>
   </tr>
   <tr>
-    <td><code>--dest</code>, <code>--D</code></td>
+    <td><code>--dest</code>, <code>-D</code></td>
     <td>The destination index, where content will be copied to</td>
   </tr>
 </table>
@@ -314,15 +314,15 @@ Reassign an alias from one index to another.
     <td>cluster in which to perform the reindex (dev, eu, or us) </td>
   <tr>
     <th align="right" rowspan="3">Options</th>
-    <td><code>--aliasName</code>, <code>--A</code></td>
+    <td><code>--aliasName</code>, <code>-A</code></td>
     <td>The name of the alias to be reassigned</td>
   </tr>
   <tr>
-    <td><code>--source</code>, <code>--S</code></td>
+    <td><code>--source</code>, <code>-S</code></td>
     <td>The source index, where the alias will be removed from</td>
   </tr>
   <tr>
-    <td><code>--dest</code>, <code>--D</code></td>
+    <td><code>--dest</code>, <code>-D</code></td>
     <td>The destination index, where the alias will be added to</td>
   </tr>
 </table>
@@ -339,15 +339,15 @@ Outputs all uuids in a given index to a .txt file
     <td>cluster in which to perform the reindex (dev, eu, or us) </td>
   <tr>
     <th align="right" rowspan="3">Options</th>
-    <td><code>--index</code>, <code>--I</code></td>
+    <td><code>--index</code>, <code>-I</code></td>
     <td>The name of the index to retrieve uuids for</td>
   </tr>
   <tr>
-    <td><code>--query</code>, <code>--Q</code></td>
+    <td><code>--query</code>, <code>-Q</code></td>
     <td>Simple query string query (optional)</td>
   </tr>
   <tr>
-    <td><code>--filename</code>, <code>--F</code></td>
+    <td><code>--filename</code>, <code>-F</code></td>
     <td>Filename to output list of uuids to (optional; defaults to <code>uuids-{{cluster}}.txt)</code></td>
   </tr>
 </table>
