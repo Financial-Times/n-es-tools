@@ -11,7 +11,7 @@
     "http-aws-es": "^4.0.0",
     "js-yaml": "^3.10.0",
     "mkdirp": "^0.5.1",
-    "node-fetch": "^2.3.0",
+    "node-fetch": "^3.1.1",
     "progress": "^2.0.0",
     "s3-client": "^4.4.2"
   },
