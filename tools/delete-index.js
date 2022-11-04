@@ -5,7 +5,7 @@ function run (cluster, command) {
   const { index } = command.opts()
 
   if (!index) {
-    return console.log(`You have not provided a value for 'index'. Please provide a value for 'index' with the --index option before continuing`)
+    return console.log('You have not provided a value for "index". Please provide a value for "index" with the --index option before continuing')
   }
 
   const client = elastic(cluster)
