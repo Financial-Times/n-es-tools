@@ -9,7 +9,7 @@ function fetchAliases () {
   })
 }
 
-async function run (cluster, command) {
+async function run (cluster) {
   client = elastic(cluster)
   const clusterHost = global.workspace.clusters[cluster]
 
