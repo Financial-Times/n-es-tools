@@ -18,7 +18,6 @@
   "scripts": {
     "postinstall": "node bin/tools install",
     "prepare": "npx snyk protect || npx snyk protect -d || true",
-    "preinstall": "[ \"$INIT_CWD\" != \"$PWD\" ] || npm_config_yes=true npx check-engine",
     "build": "dotcom-tool-kit build:local",
     "test": "dotcom-tool-kit test:local",
     "start": "dotcom-tool-kit run:local"
@@ -27,24 +26,23 @@
     "n-es-tools": "bin/tools"
   },
   "devDependencies": {
-    "@dotcom-tool-kit/circleci-npm": "^2.0.9",
-    "@dotcom-tool-kit/eslint": "^2.2.1",
-    "@dotcom-tool-kit/husky-npm": "^2.2.0",
-    "@dotcom-tool-kit/secret-squirrel": "^1.0.7",
+    "@dotcom-tool-kit/circleci-npm": "^5.2.4",
+    "@dotcom-tool-kit/eslint": "^3.1.2",
+    "@dotcom-tool-kit/husky-npm": "^4.1.0",
+    "@dotcom-tool-kit/secret-squirrel": "^2.1.2",
     "@financial-times/eslint-config-next": "^7.0.0",
     "check-engine": "^1.10.1",
-    "dotcom-tool-kit": "^2.3.5",
+    "dotcom-tool-kit": "^3.2.0",
     "npm-prepublish": "^1.2.2",
     "snyk": "^1.167.2",
     "standard": "^12.0.1"
   },
   "engines": {
-    "node": "16.x",
-    "npm": "7.x || 8.x"
+    "node": "16.x || 18.x",
+    "npm": "7.x || 8.x || 9.x"
   },
   "volta": {
-    "node": "16.14.1",
-    "npm": "7.20.2"
+    "node": "18.16.0"
   },
   "husky": {
     "hooks": {
