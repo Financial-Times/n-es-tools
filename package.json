@@ -29,7 +29,6 @@
     "@dotcom-tool-kit/circleci-npm": "^5.2.4",
     "@dotcom-tool-kit/eslint": "^3.1.2",
     "@dotcom-tool-kit/husky-npm": "^4.1.0",
-    "@dotcom-tool-kit/secret-squirrel": "^2.1.2",
     "@financial-times/eslint-config-next": "^7.0.0",
     "check-engine": "^1.10.1",
     "dotcom-tool-kit": "^3.2.0",
