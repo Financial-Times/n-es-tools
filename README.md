@@ -1,5 +1,5 @@
-[!WARNING]<br />
-This package is deprecated as of **2024-02-16**. We haven't had need to create a snapshot for our Elasticsearch cluster for years, and we recommend using the [API](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html#manually-create-snapshot) Elasticsearch provides directly in the future.
+> [!WARNING]<br />
+> This package is deprecated as of **2024-02-16**. We haven't had need to create a snapshot for our Elasticsearch cluster for years, and we recommend using the [API](https://www.elastic.co/guide/en/elasticsearch/reference/current/snapshots-take-snapshot.html#manually-create-snapshot) Elasticsearch provides directly in the future.
 
 # Next Elasticsearch Tools [![CircleCI](https://circleci.com/gh/Financial-Times/n-es-tools.svg?style=svg)](https://circleci.com/gh/Financial-Times/n-es-tools)
 
